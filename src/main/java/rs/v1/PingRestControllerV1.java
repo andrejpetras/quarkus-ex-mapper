@@ -1,25 +1,28 @@
 package rs.v1;
 
 
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
-public class PingRestControllerV1 implements PingRestApiV1 {
+@Path("/v1")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class PingRestControllerV1 {
 
-    @Override
-    public Response ping(Long error) {
-        if (error == null) {
-            return Response.ok().build();
-        }
-        throw new RuntimeException("Custom error V1");
+    @ConfigProperty(name = "test.value")
+    String value;
+
+    @GET
+    public Response ping() {
+        return Response.ok(value).build();
     }
 
-    @ServerExceptionMapper
-    public Response exception(Exception ex) {
-        Log.info("Error V1");
-        return Response.serverError().entity("ServerExceptionMapperV1: " + ex.getMessage()).build();
-    }
+
 }
