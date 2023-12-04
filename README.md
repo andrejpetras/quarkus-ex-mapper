@@ -1,24 +1,8 @@
-# quarkus-ex-mapper
+# quarkus jacoco issue
 
 
 ```shell
-curl http://localhost:8080/v1?error=1
-ServerExceptionMapperV1: Custom error V1
+mvn clean package
 ```
 
-```shell
-curl http://localhost:8080/v2?error=1
-ServerExceptionMapperV1: Custom error V2
-```
-
-After PR:
-
-```shell
-curl http://localhost:8080/v1?error=1
-ServerExceptionMapperV1: Custom error V1
-```
-
-```shell
-curl http://localhost:8080/v2?error=1
-ServerExceptionMapperV2: Custom error V2
-```
+Check and validate `target/jacoco-report/jacoco.xml`
